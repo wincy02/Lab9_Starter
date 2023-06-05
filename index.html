@@ -6,6 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lab 9</title>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "1fbcd0e00d534d13ada84c336a5fc0df"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
+                        
 
   <style>
     button {
@@ -88,6 +96,13 @@
   </main>
 
   <script>
+    class ERROR extends Error{
+      constructor(msg){
+        super(msg);
+        this.name="Error";
+      }
+    }
+
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
       e.preventDefault();
@@ -95,13 +110,116 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+
+      try{
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      }catch(err){
+        console.log('Error occured');
+        console.error(err);
+      }
+     
+      
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+    errorBtns[0].addEventListener('click',()=>{
+      console.log("console log demo");
+
+    });
+    errorBtns[1].addEventListener('click',()=>{
+      console.error("console error demo");
+
+    });
+    errorBtns[2].addEventListener('click',()=>{
+      console.count("console count");
+
+    });
+    errorBtns[3].addEventListener('click',()=>{
+      console.warn("console warn demo");
+
+    });
+    errorBtns[4].addEventListener('click',()=>{
+      const msg="the square of this number is greater than 71"; 
+      for (let i = 1; i <10; i++){
+        let product = i *i;
+        console.assert(product < 71, {i, msg});
+      }
+
+    });
+    errorBtns[5].addEventListener('click',()=>{
+      console.clear();
+      console.countReset("console count");
+
+    });
+    errorBtns[6].addEventListener('click',()=>{
+      console.dir(errorBtns);
+
+    });
+    errorBtns[7].addEventListener('click',()=>{
+      console.dirxml(errorBtns);
+
+    });
+    errorBtns[8].addEventListener('click',()=>{
+      console.group();
+
+    });
+    errorBtns[9].addEventListener('click',()=>{
+      console.groupEnd();
+
+    });
+    errorBtns[10].addEventListener('click',()=>{
+      const square_number=[
+        {Number: 1,
+        Square: 1,
+        Square_roots:'1X1'},
+        {Number:2 ,
+        Square: 4,
+        Square_roots:'2x2'},
+        {Number: 3,
+        Square: 9,
+        Square_roots:'3x3'},
+        {Number: 4,
+        Square: 16,
+        Square_roots:'4x4'},
+        {Number: 5,
+        Square: 25,
+        Square_roots:'5x5'},
+
+      ];
+
+      console.table(square_number);
+
+    });
+    errorBtns[11].addEventListener('click',()=>{
+      console.time("timer end");
+
+    });
+    errorBtns[12].addEventListener('click',()=>{
+      console.timeEnd("timer end");
+
+    });
+    errorBtns[13].addEventListener('click',()=>{
+      const t =()=>{
+        a();
+      };
+      const a=()=>{
+        c();
+      };
+      const c =()=>{
+        console.trace();
+      };
+      t();
+
+    });
+    errorBtns[14].addEventListener('click',()=>{
+      throw new ERROR("Ooooops!");
+    
+    });
+    
+                        
   </script>
 </body>
 
